@@ -20,7 +20,7 @@ int main()
 
 	sf::Texture t1, t2;
 	sf::Sprite background, explosion;
-	//wn.setFramerateLimit(120);
+	
 	if (!t1.loadFromFile("materials/background.jpg"))
 		std::cout << "Error loading file";
 	background.setTexture(t1);
@@ -46,12 +46,11 @@ int main()
 			wn.draw(background);
 			check_event(wn, myplayer, bulletarray, sound);
 			update_player(wn, myplayer, bulletarray, rocks);
-			check_explosion(wn, explosions);
 			update_bullets(wn, bulletarray);
+			check_explosion(wn, explosions);
 			update_asteriods(wn, rocks);
 			check_collision(wn, myplayer, bulletarray, rocks, explosions, sound1);
 			wn.display();
-
 
 
 	}

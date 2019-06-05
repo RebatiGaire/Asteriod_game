@@ -9,6 +9,20 @@
 #include "collision.h"
 
 
+void update_player(sf::RenderWindow &window, player *myplayer, std::list<Bullet*> &bulletarray, std::list<asteriod*> &rocks)
+{
+  myplayer->update();
+  if (myplayer->life == 0)
+  {
+
+      delete myplayer;
+      player *myplayer = new player();
+    }
+  else
+    myplayer->drawplayer(window);
+
+}
+
 
 void create_bullet(player *myplayer, std::list<Bullet*> &bulletarray, sf::Sound &sound)
 {
@@ -20,18 +34,6 @@ void create_bullet(player *myplayer, std::list<Bullet*> &bulletarray, sf::Sound 
 }
 
 
-void check_keydown(sf::Event evnt, player *myplayer)
-{
-
-  if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-      myplayer->left_rotation = true;
-
-  if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-    myplayer->right_rotation = true;
-
-  if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-    myplayer->thrust = true;
-}
 
 
 void check_keyup(sf::Event evnt, player *myplayer, std::list<Bullet*> &bulletarray, sf::Sound &sound)
@@ -47,6 +49,19 @@ void check_keyup(sf::Event evnt, player *myplayer, std::list<Bullet*> &bulletarr
     myplayer->right_rotation = false;
   if (evnt.key.code == sf::Keyboard::Up)
       myplayer->thrust = false;
+}
+
+void check_keydown(sf::Event evnt, player *myplayer)
+{
+
+  if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+      myplayer->left_rotation = true;
+
+  if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+    myplayer->right_rotation = true;
+
+  if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+    myplayer->thrust = true;
 }
 
 
@@ -103,19 +118,7 @@ void update_bullets(sf::RenderWindow &window, std::list<Bullet*> &bulletarray)
 
 }
 
-void update_player(sf::RenderWindow &window, player *myplayer, std::list<Bullet*> &bulletarray, std::list<asteriod*> &rocks)
-{
-  myplayer->update();
-  if (myplayer->life == 0)
-  {
 
-      delete myplayer;
-      player *myplayer = new player();
-    }
-  else
-    myplayer->drawplayer(window);
-
-}
 
 
 void create_asteriod(std::list<asteriod*> &rocks)
